@@ -74,7 +74,7 @@ Generates a scatter plot for Red vs. NIR bands from Landsat 8 data within the sp
 
 ### 2. **Map Visualization** 🗺️
 
-Generates an interactive map of Landsat 8 images for the given Area of Interest (Tokyo by default).
+Generates an interactive map of Landsat 8 images for the given Area of Interest (Mendoza, Argentina by default).
 
 - **URL**: `POST /generate-map/`
 - **Response**: Number of images in the collection and a generated map saved as `map.html`.
