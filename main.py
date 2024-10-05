@@ -21,6 +21,12 @@ class AoiRequest(BaseModel):
     end_date: Optional[str] = '2025-12-30'
 
 
+# Endpoint 0: Root
+@app.get("/")
+async def root():
+    return {"message": "Welcome to LESSAT 2024!"}
+
+
 # Endpoint 1: Generate scatter plot of Red vs NIR
 @app.post("/generate-scatter-plot/")
 async def generate_scatter_plot(request: AoiRequest):
