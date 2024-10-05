@@ -1,14 +1,21 @@
-import ee
-import folium
-import matplotlib.pyplot as plt
 from fastapi import FastAPI
-from fastapi.responses import FileResponse
 from pydantic import BaseModel
+import folium
+from starlette.responses import FileResponse
+import ee
+from dotenv import load_dotenv
 from typing import Optional
 import os
 
-# Initialize the Earth Engine API
-ee.Initialize(project='ee-nasa-space-app-challenge')
+
+# Load environment variables from the .env file
+load_dotenv()
+
+# Retrieve the Earth Engine project name from the environment variables
+ee_project = os.getenv('EE_PROJECT')
+
+# Initialize Earth Engine with the project name
+ee.Initialize(project=ee_project)
 
 # FastAPI app
 app = FastAPI()
@@ -67,8 +74,6 @@ async def generate_scatter_plot(request: AoiRequest):
     # Return the image as a response
     return FileResponse(plot_filename, media_type='image/png')
 
-
-# Endpoint 2: Generate and save a Folium map
 @app.post("/generate-map/")
 async def generate_map(request: AoiRequest):
     aoi = ee.Geometry.Point([request.lon, request.lat])
@@ -80,6 +85,19 @@ async def generate_map(request: AoiRequest):
 
     # Get the first image in the collection for visualization
     img = landsat_collection.first()
+
+    # Get metadata from the first image
+    img_info = img.getInfo()
+    properties = img_info.get('properties', {})
+
+    # Extract 5 key metadata items relevant to scientific analysis
+    relevant_metadata = {
+        'CLOUD_COVER': properties.get('CLOUD_COVER', 'N/A'),
+        'SUN_AZIMUTH': properties.get('SUN_AZIMUTH', 'N/A'),
+        'SUN_ELEVATION': properties.get('SUN_ELEVATION', 'N/A'),
+        'EARTH_SUN_DISTANCE': properties.get('EARTH_SUN_DISTANCE', 'N/A'),
+        'SENSOR_ANGLE': properties.get('SENSOR_AZIMUTH', 'N/A')
+    }
 
     # Create a Folium map centered on the AOI
     map_center = [request.lat, request.lon]
@@ -96,11 +114,11 @@ async def generate_map(request: AoiRequest):
             control=True
         ).add_to(m)
 
-    # Visualization parameters
+    # Experimenting with auto-scaling or setting reasonable min/max values
     vis_params = {
-        'bands': ['B4', 'B3', 'B2'],  # RGB
-        'min': 0,
-        'max': 3000,
+        'bands': ['B4', 'B3', 'B2'],  # RGB bands
+        'min': 0,  # Adjusted to minimum reflectance values
+        'max': 0.3,  # Adjusted for TOA reflectance images
         'gamma': 1.4
     }
 
@@ -109,6 +127,14 @@ async def generate_map(request: AoiRequest):
 
     # Add the AOI to the map
     folium.Marker(location=[request.lat, request.lon], popup='AOI', icon=folium.Icon(color='red')).add_to(m)
+
+    # Add relevant metadata as a popup on the map
+    metadata_html = "<b>Landsat 8 Metadata (Scientific Analysis):</b><br>"
+    for key, value in relevant_metadata.items():
+        metadata_html += f"{key}: {value}<br>"
+
+    metadata_popup = folium.Popup(html=metadata_html, max_width=300)
+    folium.Marker(location=map_center, popup=metadata_popup).add_to(m)
 
     # Add base layers for context with attribution
     folium.TileLayer(
@@ -131,7 +157,7 @@ async def generate_map(request: AoiRequest):
     folium.LayerControl().add_to(m)
 
     # Save the map as an HTML file
-    map_filename = "map.html"
+    map_filename = "map_with_metadata.html"
     m.save(map_filename)
 
     # Return the HTML file
