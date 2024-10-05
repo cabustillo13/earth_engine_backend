@@ -5,6 +5,7 @@ from starlette.responses import FileResponse
 import ee
 from dotenv import load_dotenv
 from typing import Optional
+import matplotlib.pyplot as plt
 import os
 
 
@@ -162,6 +163,58 @@ async def generate_map(request: AoiRequest):
 
     # Return the HTML file
     return FileResponse(map_filename, media_type='text/html')
+
+
+
+# Landsat 8 Band Wavelengths (in micrometers)
+band_wavelengths = {
+    'B1': 0.44,  # Coastal/Aerosol
+    'B2': 0.48,  # Blue
+    'B3': 0.56,  # Green
+    'B4': 0.66,  # Red
+    'B5': 0.86,  # NIR
+    'B6': 1.6,   # SWIR1
+    'B7': 2.2,   # SWIR2
+}
+
+# Endpoint to generate Reflectance vs Wavelength plot
+@app.post("/generate-reflectance-plot/")
+async def generate_reflectance_plot(request: AoiRequest):
+    aoi = ee.Geometry.Point([request.lon, request.lat])
+    
+    # Fetch Landsat 8 TOA images and filter by date and region
+    landsat_collection = ee.ImageCollection('LANDSAT/LC08/C02/T1_TOA') \
+        .filterDate(request.start_date, request.end_date) \
+        .filterBounds(aoi)
+    
+    # Get the first image in the collection
+    img = landsat_collection.first()
+
+    # Sample reflectance values at the AOI for each band
+    reflectance = img.sample(region=aoi, scale=30).first().toDictionary()
+
+    # Extract reflectance values for key bands (B1 to B7)
+    reflectance_values = [
+        reflectance.get(f'B{band}').getInfo() for band in range(1, 8)
+    ]
+
+    # Plot Reflectance vs Wavelength
+    wavelengths = list(band_wavelengths.values())
+    
+    plt.figure(figsize=(10, 6))
+    plt.plot(wavelengths, reflectance_values, marker='o', linestyle='-', color='b')
+    plt.xlabel('Wavelength (µm)', fontsize=12)
+    plt.ylabel('Reflectance', fontsize=12)
+    plt.title('Reflectance vs Wavelength for Landsat 8', fontsize=14)
+    plt.grid(True)
+    
+    # Save the plot
+    plot_filename = 'reflectance_vs_wavelength.png'
+    plt.savefig(plot_filename)
+    
+    # Return the plot as a response
+    return FileResponse(plot_filename, media_type='image/png')
+
 
 
 # Run the FastAPI app (use uvicorn in terminal to run the server)
