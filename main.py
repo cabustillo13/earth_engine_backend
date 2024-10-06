@@ -37,8 +37,8 @@ templates = Jinja2Templates(directory="templates")
 
 # Define a model for the area of interest and date range
 class AoiRequest(BaseModel):
-    lat: float
-    lon: float
+    lat: Optional[float] = -32.88
+    lon: Optional[float] = -68.84
     start_date: Optional[str] = '2024-01-01'
     end_date: Optional[str] = '2025-12-30'
 
