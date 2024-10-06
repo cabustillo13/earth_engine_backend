@@ -107,16 +107,16 @@ async def generate_map(request: AoiRequest):
 
     # Extract 5 key metadata items relevant to scientific analysis
     relevant_metadata = {
-        'CLOUD_COVER': properties.get('CLOUD_COVER', 'N/A'),
-        'SUN_AZIMUTH': properties.get('SUN_AZIMUTH', 'N/A'),
-        'SUN_ELEVATION': properties.get('SUN_ELEVATION', 'N/A'),
-        'EARTH_SUN_DISTANCE': properties.get('EARTH_SUN_DISTANCE', 'N/A'),
-        'SENSOR_ANGLE': properties.get('SENSOR_AZIMUTH', 'N/A')
+        'Cloud Coverage': properties.get('CLOUD_COVER', 'N/A'),
+        'Sun Azimuth': properties.get('SUN_AZIMUTH', 'N/A'),
+        'Sun Elevation': properties.get('SUN_ELEVATION', 'N/A'),
+        'Earth-Sun Distance': properties.get('EARTH_SUN_DISTANCE', 'N/A'),
+        'Sensor Angle': properties.get('SENSOR_AZIMUTH', 'N/A')
     }
 
     # Create a Folium map centered on the AOI
     map_center = [request.lat, request.lon]
-    m = folium.Map(location=map_center, zoom_start=10)
+    m = folium.Map(location=map_center, zoom_start=8)
 
     # Function to add Earth Engine image to folium map
     def add_ee_layer(image, vis_params, name):
@@ -144,7 +144,7 @@ async def generate_map(request: AoiRequest):
     folium.Marker(location=[request.lat, request.lon], popup='AOI', icon=folium.Icon(color='red')).add_to(m)
 
     # Add relevant metadata as a popup on the map
-    metadata_html = "<b>Landsat 8 Metadata (Scientific Analysis):</b><br>"
+    metadata_html = "<b>Landsat 8 Metadata<br>(Scientific Analysis):</b><br>"
     for key, value in relevant_metadata.items():
         metadata_html += f"{key}: {value}<br>"
 
