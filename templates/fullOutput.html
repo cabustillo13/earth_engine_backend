@@ -20,21 +20,21 @@
         .container {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center; /* Center the container */
+            justify-content: center;
             padding: 20px;
         }
         .map {
-            flex: 2; /* Map takes up more space */
-            margin-right: 20px; /* Space between map and images */
+            flex: 2;
+            margin-right: 20px;
             background-color: white;
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-            text-align: center; /* Center the text */
+            text-align: center;
         }
         .images {
-            flex: 1; /* Images take up less space */
+            flex: 1;
             display: flex;
-            flex-direction: column; /* Stack images vertically */
-            justify-content: space-between; /* Space between images */
+            flex-direction: column;
+            justify-content: space-between;
         }
         .item {
             background-color: white;
@@ -46,6 +46,22 @@
             width: 100%;
             height: auto;
         }
+        .center {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        button {
+            background-color: #ec4899;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+        }
+        button:hover {
+            background-color: #d13479;
+        }
     </style>
 </head>
 <body>
@@ -55,48 +71,46 @@
     </header>
 
     <div class="container">
-        <!-- Embed the map_with_metadata.html file -->
         <div class="map">
             <h2>Map with Landsat-8 Metadata</h2>
-            <iframe src="/static/map_with_metadata.html" frameborder="0" style="height: 500px;"></iframe> <!-- Adjust height as needed -->
+            <iframe src="/static/map_with_metadata.html" frameborder="0" style="height: 500px;"></iframe>
         </div>
 
-        <!-- Display images on the right -->
         <div class="images">
-            <!-- Display reflectance_vs_wavelength.png -->
             <div class="item">
                 <h2>Reflectance vs. Wavelength</h2>
                 <img src="/static/reflectance_vs_wavelength.png" alt="Reflectance vs Wavelength Plot">
             </div>
 
-            <!-- Display scatter_plot.png -->
             <div class="item">
                 <h2>Red vs. NIR: Scatter Plot</h2>
                 <img src="/static/scatter_plot.png" alt="Scatter Plot">
             </div>
+
             <div>
                 <h1>Landsat 8 Metadata</h1>
-                <div id="metadata">
-                    <!-- Metadata from metadata.json goes here -->
+                <div class="center">
+                    <button id="downloadBtn">Download data as CSV</button> <!-- Centered button below the title -->
                 </div>
+                <div id="metadata"></div> <!-- Metadata content goes here -->
             </div>
         </div>
     </div>
 
     <script>
+        let jsonData;
+
         // Load metadata from metadata.json
         fetch('/static/metadata.json')
             .then(response => response.json())
             .then(data => {
+                jsonData = data;
                 const metadataDiv = document.getElementById('metadata');
-                // Clear the div before adding new content
                 metadataDiv.innerHTML = '';
-
-                // Iterate through the metadata and create HTML content
+                
+                // Iterate through the metadata and add it to the div
                 for (const [key, value] of Object.entries(data)) {
-                    // Create a new paragraph for each metadata entry
                     const para = document.createElement('p');
-                    // Set the innerHTML to include the key in bold
                     para.innerHTML = `<strong>${key}</strong>: ${value}`;
                     metadataDiv.appendChild(para);
                 }
@@ -104,6 +118,28 @@
             .catch(error => {
                 console.error('Error loading metadata:', error);
             });
+
+        // Convert JSON to CSV
+        function jsonToCSV(json) {
+            const keys = Object.keys(json);
+            const values = Object.values(json);
+            let csv = keys.join(',') + '\n' + values.join(',');
+            return csv;
+        }
+
+        // Trigger CSV download
+        document.getElementById('downloadBtn').addEventListener('click', () => {
+            const csv = jsonToCSV(jsonData);
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'metadata.csv';
+            link.click();
+
+            URL.revokeObjectURL(url);
+        });
     </script>
 </body>
 </html>
