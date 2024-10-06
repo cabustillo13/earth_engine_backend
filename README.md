@@ -8,6 +8,8 @@ This FastAPI application allows you to interact with Google Earth Engine's Lands
 - **Map Visualization of Landsat Images** 🗺️
 - **Reflectance vs. Wavelength Plot** 📈
 
+![Full dashboard](./images/full_dashboard.JPG)
+
 ---
 
 ## 🛠️ Installation & Setup
@@ -82,6 +84,8 @@ Generates a scatter plot for Red vs. NIR bands from Landsat 8 data within the sp
 - **Response**: A generated scatter plot image.
 - **Media Type**: `image/png`
 
+![Scatter Plot](./static/scatter_plot.png)
+
 ### 2. **Map Visualization** 🗺️
 
 Generates an interactive map of Landsat 8 images for the specified Area of Interest.
@@ -99,6 +103,8 @@ Generates an interactive map of Landsat 8 images for the specified Area of Inter
 - **Response**: An interactive map saved as `map_with_metadata.html`.
 - **Media Type**: `text/html`
 
+![Map with Landsat](./images/map_with_landsat.JPG)
+
 ### 3. **Reflectance vs. Wavelength Plot** 📈
 
 Generates a plot showing reflectance values for each band of Landsat 8 data.
@@ -115,6 +121,8 @@ Generates a plot showing reflectance values for each band of Landsat 8 data.
     ```
 - **Response**: A generated reflectance vs. wavelength plot image.
 - **Media Type**: `image/png`
+
+![Reflectance](./static/reflectance_vs_wavelength.png)
 
 ---
 
