@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualization Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 1em;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 20px;
+        }
+        .item {
+            background-color: white;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            margin: 10px;
+            width: 30%;
+            text-align: center;
+        }
+        iframe, img {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Visualization Page</h1>
+    </header>
+
+    <div class="container">
+        <!-- Embed the map_with_metadata.html file -->
+        <div class="item">
+            <h2>Map with Metadata</h2>
+            <iframe src="/static/map_with_metadata.html" frameborder="0"></iframe>
+        </div>
+
+        <!-- Display reflectance_vs_wavelength.png -->
+        <div class="item">
+            <h2>Reflectance vs Wavelength</h2>
+            <img src="/static/reflectance_vs_wavelength.png" alt="Reflectance vs Wavelength Plot">
+        </div>
+
+        <!-- Display scatter_plot.png -->
+        <div class="item">
+            <h2>Scatter Plot</h2>
+            <img src="/static/scatter_plot.png" alt="Scatter Plot">
+        </div>
+    </div>
+
+</body>
+</html>

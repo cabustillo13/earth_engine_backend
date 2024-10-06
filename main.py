@@ -8,6 +8,11 @@ from typing import Optional
 import matplotlib.pyplot as plt
 import os
 
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
+from starlette.templating import Jinja2Templates
+from fastapi import Request
+
 
 # Load environment variables from the .env file
 load_dotenv()
@@ -20,6 +25,15 @@ ee.Initialize(project=ee_project)
 
 # FastAPI app
 app = FastAPI()
+
+# Get the absolute path to the static directory
+static_dir = os.path.abspath("static")
+
+# Mount the static files
+app.mount("/static", StaticFiles(directory=static_dir), name="static")
+
+# Template directory for HTML rendering
+templates = Jinja2Templates(directory="templates")
 
 # Define a model for the area of interest and date range
 class AoiRequest(BaseModel):
@@ -215,6 +229,11 @@ async def generate_reflectance_plot(request: AoiRequest):
     # Return the plot as a response
     return FileResponse(plot_filename, media_type='image/png')
 
+
+# GET endpoint to serve the index.html
+@app.get("/fullAnswer/", response_class=HTMLResponse)
+async def read_item(request: Request):
+    return templates.TemplateResponse("fullOutput.html", {"request": request})
 
 
 # Run the FastAPI app (use uvicorn in terminal to run the server)
