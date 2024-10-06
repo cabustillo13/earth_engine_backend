@@ -1,17 +1,19 @@
-from fastapi import FastAPI
-from pydantic import BaseModel
-import folium
-from starlette.responses import FileResponse
-import ee
-from dotenv import load_dotenv
-from typing import Optional
-import matplotlib.pyplot as plt
 import os
+from dotenv import load_dotenv
 
+import ee
+import folium
+import matplotlib.pyplot as plt
+
+from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
-from fastapi import Request
+
+import uvicorn
+from pydantic import BaseModel
+from starlette.responses import FileResponse
+from typing import Optional
 
 
 # Load environment variables from the .env file
@@ -232,11 +234,10 @@ async def generate_reflectance_plot(request: AoiRequest):
 
 # GET endpoint to serve the index.html
 @app.get("/fullAnswer/", response_class=HTMLResponse)
-async def read_item(request: Request):
+async def display_dashboard(request: Request):
     return templates.TemplateResponse("fullOutput.html", {"request": request})
 
 
 # Run the FastAPI app (use uvicorn in terminal to run the server)
 if __name__ == "__main__":
-    import uvicorn
     uvicorn.run(app, host="127.0.0.1", port=8000)
