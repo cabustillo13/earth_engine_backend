@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visualization Page</title>
+    <title>Lessat Dashboard 2024</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,7 +12,7 @@
             background-color: #f4f4f4;
         }
         header {
-            background-color: #4CAF50;
+            background-color: #375ae8;
             color: white;
             text-align: center;
             padding: 1em;
@@ -20,15 +20,26 @@
         .container {
             display: flex;
             flex-wrap: wrap;
-            justify-content: space-around;
+            justify-content: center; /* Center the container */
             padding: 20px;
+        }
+        .map {
+            flex: 2; /* Map takes up more space */
+            margin-right: 20px; /* Space between map and images */
+            background-color: white;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            text-align: center; /* Center the text */
+        }
+        .images {
+            flex: 1; /* Images take up less space */
+            display: flex;
+            flex-direction: column; /* Stack images vertically */
+            justify-content: space-between; /* Space between images */
         }
         .item {
             background-color: white;
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
             padding: 20px;
-            margin: 10px;
-            width: 30%;
             text-align: center;
         }
         iframe, img {
@@ -40,26 +51,29 @@
 <body>
 
     <header>
-        <h1>Visualization Page</h1>
+        <h1>Lessat Dashboard 2024</h1>
     </header>
 
     <div class="container">
         <!-- Embed the map_with_metadata.html file -->
-        <div class="item">
-            <h2>Map with Metadata</h2>
-            <iframe src="/static/map_with_metadata.html" frameborder="0"></iframe>
+        <div class="map">
+            <h2>Map with Landsat Metadata</h2>
+            <iframe src="/static/map_with_metadata.html" frameborder="0" style="height: 500px;"></iframe> <!-- Adjust height as needed -->
         </div>
 
-        <!-- Display reflectance_vs_wavelength.png -->
-        <div class="item">
-            <h2>Reflectance vs Wavelength</h2>
-            <img src="/static/reflectance_vs_wavelength.png" alt="Reflectance vs Wavelength Plot">
-        </div>
+        <!-- Display images on the right -->
+        <div class="images">
+            <!-- Display reflectance_vs_wavelength.png -->
+            <div class="item">
+                <h2>Reflectance vs. Wavelength</h2>
+                <img src="/static/reflectance_vs_wavelength.png" alt="Reflectance vs Wavelength Plot">
+            </div>
 
-        <!-- Display scatter_plot.png -->
-        <div class="item">
-            <h2>Scatter Plot</h2>
-            <img src="/static/scatter_plot.png" alt="Scatter Plot">
+            <!-- Display scatter_plot.png -->
+            <div class="item">
+                <h2>Red vs. NIR: Scatter Plot</h2>
+                <img src="/static/scatter_plot.png" alt="Scatter Plot">
+            </div>
         </div>
     </div>
 
