@@ -83,7 +83,7 @@ async def generate_scatter_plot(request: AoiRequest):
     plt.title('Red vs. NIR Scatter Plot for Landsat Images')
 
     # Save the plot
-    plot_filename = 'scatter_plot.png'
+    plot_filename = 'static/scatter_plot.png'
     plt.savefig(plot_filename)
 
     # Return the image as a response
@@ -172,7 +172,7 @@ async def generate_map(request: AoiRequest):
     folium.LayerControl().add_to(m)
 
     # Save the map as an HTML file
-    map_filename = "map_with_metadata.html"
+    map_filename = "static/map_with_metadata.html"
     m.save(map_filename)
 
     # Return the HTML file
@@ -223,7 +223,7 @@ async def generate_reflectance_plot(request: AoiRequest):
     plt.grid(True)
     
     # Save the plot
-    plot_filename = 'reflectance_vs_wavelength.png'
+    plot_filename = 'static/reflectance_vs_wavelength.png'
     plt.savefig(plot_filename)
     
     # Return the plot as a response
