@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-
+import json
 import ee
 import folium
 import matplotlib.pyplot as plt
@@ -107,6 +107,13 @@ async def generate_map(request: AoiRequest):
     img_info = img.getInfo()
     properties = img_info.get('properties', {})
 
+    # Create a new dictionary without underscores in the keys
+    cleaned_properties = {key.replace('_', ' '): value for key, value in properties.items()}
+
+    # Save metadata to JSON file
+    with open('static/metadata.json', 'w') as json_file:
+        json.dump(cleaned_properties, json_file, indent=4)
+
     # Extract 5 key metadata items relevant to scientific analysis
     relevant_metadata = {
         'Cloud Coverage': properties.get('CLOUD_COVER', 'N/A'),
@@ -177,9 +184,7 @@ async def generate_map(request: AoiRequest):
     map_filename = "static/map_with_metadata.html"
     m.save(map_filename)
 
-    # Return the HTML file
     return FileResponse(map_filename, media_type='text/html')
-
 
 
 # Landsat 8 Band Wavelengths (in micrometers)

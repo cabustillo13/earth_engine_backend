@@ -74,8 +74,36 @@
                 <h2>Red vs. NIR: Scatter Plot</h2>
                 <img src="/static/scatter_plot.png" alt="Scatter Plot">
             </div>
+            <div>
+                <h1>Landsat 8 Metadata</h1>
+                <div id="metadata">
+                    <!-- Metadata from metadata.json goes here -->
+                </div>
+            </div>
         </div>
     </div>
 
+    <script>
+        // Load metadata from metadata.json
+        fetch('/static/metadata.json')
+            .then(response => response.json())
+            .then(data => {
+                const metadataDiv = document.getElementById('metadata');
+                // Clear the div before adding new content
+                metadataDiv.innerHTML = '';
+
+                // Iterate through the metadata and create HTML content
+                for (const [key, value] of Object.entries(data)) {
+                    // Create a new paragraph for each metadata entry
+                    const para = document.createElement('p');
+                    // Set the innerHTML to include the key in bold
+                    para.innerHTML = `<strong>${key}</strong>: ${value}`;
+                    metadataDiv.appendChild(para);
+                }
+            })
+            .catch(error => {
+                console.error('Error loading metadata:', error);
+            });
+    </script>
 </body>
 </html>
