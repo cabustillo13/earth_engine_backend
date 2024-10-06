@@ -10,6 +10,8 @@ This FastAPI application allows you to interact with Google Earth Engine's Lands
 
 ![Full dashboard](./images/full_dashboard.JPG)
 
+![Full dashboard 1](./images/full_dashboard_1.JPG)
+
 ---
 
 ## 🛠️ Installation & Setup
