@@ -1,11 +1,16 @@
 # 🌍 Landsat Data API with FastAPI 🚀
 
-This FastAPI application lets you interact with Google Earth Engine's Landsat data and provides endpoints for visualizing **scatter plots** and generating **maps** for a given area of interest (Mendoza, Argentina by default).
+This FastAPI application allows you to interact with Google Earth Engine's Landsat 8 data, providing endpoints for generating **scatter plots** and **interactive maps** for a specified area of interest (Mendoza, Argentina by default).
 
 ## 🌟 Features
 
 - **Scatter Plot of Red vs. NIR bands** 📊
 - **Map Visualization of Landsat Images** 🗺️
+- **Reflectance vs. Wavelength Plot** 📈
+
+![Full dashboard](./images/full_dashboard.JPG)
+
+![Full dashboard 1](./images/full_dashboard_1.JPG)
 
 ---
 
@@ -14,7 +19,7 @@ This FastAPI application lets you interact with Google Earth Engine's Landsat da
 ### Prerequisites
 
 - Python 3.8+ 🐍
-- Google Earth Engine account 🌐 (and credentials setup)
+- Google Earth Engine account 🌐 (and credentials set up)
 
 ### 1. Clone the Repository
 
@@ -69,36 +74,57 @@ This will start the application at `http://127.0.0.1:8000`.
 Generates a scatter plot for Red vs. NIR bands from Landsat 8 data within the specified date range.
 
 - **URL**: `POST /generate-scatter-plot/`
-- **Response**: Number of images in the collection and a generated scatter plot.
-- It returns a `media_type='image/png'`
+- **Request Body**: 
+    ```json
+    {
+        "lat": -32.88,
+        "lon": -68.84,
+        "start_date": "2024-01-01",
+        "end_date": "2025-12-30"
+    }
+    ```
+- **Response**: A generated scatter plot image.
+- **Media Type**: `image/png`
+
+![Scatter Plot](./static/scatter_plot.png)
 
 ### 2. **Map Visualization** 🗺️
 
-Generates an interactive map of Landsat 8 images for the given Area of Interest (Mendoza, Argentina by default).
+Generates an interactive map of Landsat 8 images for the specified Area of Interest.
 
 - **URL**: `POST /generate-map/`
-- **Response**: Number of images in the collection and a generated map saved as `map.html`.
-- It returns a `media_type='text/html'`
+- **Request Body**: 
+    ```json
+    {
+        "lat": -32.88,
+        "lon": -68.84,
+        "start_date": "2024-01-01",
+        "end_date": "2025-12-30"
+    }
+    ```
+- **Response**: An interactive map saved as `map_with_metadata.html`.
+- **Media Type**: `text/html`
 
----
+![Map with Landsat](./images/map_with_landsat.JPG)
 
-## 🧪 Testing the API
+### 3. **Reflectance vs. Wavelength Plot** 📈
 
-1. Ensure that the FastAPI server is running:
-   ```bash
-   uvicorn main:app --reload
-   ```
+Generates a plot showing reflectance values for each band of Landsat 8 data.
 
-   or
+- **URL**: `POST /generate-reflectance-plot/`
+- **Request Body**: 
+    ```json
+    {
+        "lat": -32.88,
+        "lon": -68.84,
+        "start_date": "2024-01-01",
+        "end_date": "2025-12-30"
+    }
+    ```
+- **Response**: A generated reflectance vs. wavelength plot image.
+- **Media Type**: `image/png`
 
-  ```python
-   python main.py
-   ```
-
-3. Run the client script to make requests to the two endpoints:
-   ```bash
-   python test.py
-   ```
+![Reflectance](./static/reflectance_vs_wavelength.png)
 
 ---
 
@@ -108,21 +134,21 @@ Generates an interactive map of Landsat 8 images for the given Area of Interest 
 ├── main.py             # FastAPI application
 ├── test.py             # Client script to test API
 ├── requirements.txt    # Required dependencies
-└── README.md           # This file! 📄
+└── README.md           # Documentation 📄
 ```
 
 ---
 
 ## 💡 Troubleshooting
 
-- If you get the error `Please authorize access to your Earth Engine account`, make sure you’ve authenticated your Earth Engine account.
-- Ensure that you’ve installed all the necessary libraries from `requirements.txt`.
+- If you receive the error `Please authorize access to your Earth Engine account`, ensure that you’ve authenticated your Earth Engine account.
+- Confirm that you’ve installed all necessary libraries from `requirements.txt`.
 
 ---
 
 ## 🎉 Conclusion
 
-This API makes it easy to access and visualize Landsat data for remote sensing and analysis. With just a couple of endpoints, you can fetch powerful satellite imagery data and visualize it easily!
+This API facilitates easy access to and visualization of Landsat data for remote sensing and analysis. With just a few endpoints, you can fetch powerful satellite imagery data and visualize it effortlessly!
 
 Feel free to contribute to the project or expand its functionality! Happy coding! 🚀
 
@@ -130,4 +156,4 @@ Feel free to contribute to the project or expand its functionality! Happy coding
 
 ## 📞 Contact
 
-If you have any issues, feel free to reach out via a GitHub issue or send me a message.
+If you encounter any issues, feel free to reach out via a GitHub issue or send me a message.

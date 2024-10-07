@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lessat 2024</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: black;
+            color: #ec4899;
+            text-align: center;
+            padding: 1em;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+        .map {
+            flex: 2;
+            margin-right: 20px;
+            background-color: white;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        .images {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .item {
+            background-color: white;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            text-align: center;
+        }
+        iframe, img {
+            width: 100%;
+            height: auto;
+        }
+        .center {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        button {
+            background-color: #ec4899;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+        }
+        button:hover {
+            background-color: #d13479;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>LESSAT DASHBOARD 2024</h1>
+    </header>
+
+    <div class="container">
+        <div class="map">
+            <h2>Map with Landsat-8 Metadata</h2>
+            <iframe src="/static/map_with_metadata.html" frameborder="0" style="height: 500px;"></iframe>
+        </div>
+
+        <div class="images">
+            <div class="item">
+                <h2>Reflectance vs. Wavelength</h2>
+                <img src="/static/reflectance_vs_wavelength.png" alt="Reflectance vs Wavelength Plot">
+            </div>
+
+            <div class="item">
+                <h2>Red vs. NIR: Scatter Plot</h2>
+                <img src="/static/scatter_plot.png" alt="Scatter Plot">
+            </div>
+
+            <div>
+                <h1>Landsat 8 Metadata</h1>
+                <div class="center">
+                    <button id="downloadBtn">Download data as CSV</button> <!-- Centered button below the title -->
+                </div>
+                <div id="metadata"></div> <!-- Metadata content goes here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let jsonData;
+
+        // Load metadata from metadata.json
+        fetch('/static/metadata.json')
+            .then(response => response.json())
+            .then(data => {
+                jsonData = data;
+                const metadataDiv = document.getElementById('metadata');
+                metadataDiv.innerHTML = '';
+                
+                // Iterate through the metadata and add it to the div
+                for (const [key, value] of Object.entries(data)) {
+                    const para = document.createElement('p');
+                    para.innerHTML = `<strong>${key}</strong>: ${value}`;
+                    metadataDiv.appendChild(para);
+                }
+            })
+            .catch(error => {
+                console.error('Error loading metadata:', error);
+            });
+
+        // Convert JSON to CSV
+        function jsonToCSV(json) {
+            const keys = Object.keys(json);
+            const values = Object.values(json);
+            let csv = keys.join(',') + '\n' + values.join(',');
+            return csv;
+        }
+
+        // Trigger CSV download
+        document.getElementById('downloadBtn').addEventListener('click', () => {
+            const csv = jsonToCSV(jsonData);
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'metadata.csv';
+            link.click();
+
+            URL.revokeObjectURL(url);
+        });
+    </script>
+</body>
+</html>

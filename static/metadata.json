@@ -1,0 +1,206 @@
+{
+    "RADIANCE MULT BAND 5": 0.0063193,
+    "RADIANCE MULT BAND 6": 0.0015716,
+    "RADIANCE MULT BAND 3": 0.012246,
+    "RADIANCE MULT BAND 4": 0.010327,
+    "RADIANCE MULT BAND 1": 0.012978,
+    "RADIANCE MULT BAND 2": 0.013289,
+    "WRS TYPE": 2,
+    "K2 CONSTANT BAND 11": 1201.1442,
+    "K2 CONSTANT BAND 10": 1321.0789,
+    "system:footprint": {
+        "type": "LinearRing",
+        "coordinates": [
+            [
+                -68.38659091179271,
+                -34.23076205868624
+            ],
+            [
+                -68.38263542001592,
+                -34.231398569173656
+            ],
+            [
+                -68.15422532929799,
+                -33.37144314453482
+            ],
+            [
+                -67.9304884428728,
+                -32.51256847083347
+            ],
+            [
+                -67.93050718201202,
+                -32.5109862823123
+            ],
+            [
+                -68.13843602996658,
+                -32.47209752019966
+            ],
+            [
+                -69.58666562841974,
+                -32.19073091236551
+            ],
+            [
+                -69.92025488705308,
+                -32.12331514372742
+            ],
+            [
+                -69.92083195616432,
+                -32.124276695646024
+            ],
+            [
+                -69.92772448817864,
+                -32.144944825709636
+            ],
+            [
+                -69.99117269245596,
+                -32.363673453444754
+            ],
+            [
+                -70.16396343453596,
+                -32.966181765768845
+            ],
+            [
+                -70.35131127784759,
+                -33.60950376559456
+            ],
+            [
+                -70.35973400802767,
+                -33.638729909059336
+            ],
+            [
+                -70.37258331392094,
+                -33.68404119283109
+            ],
+            [
+                -70.41516215250383,
+                -33.83619995586779
+            ],
+            [
+                -70.41296032806406,
+                -33.83684056964028
+            ],
+            [
+                -70.38617286930551,
+                -33.84232031732667
+            ],
+            [
+                -70.00965860012137,
+                -33.91821779462271
+            ],
+            [
+                -69.09513919642359,
+                -34.09724140179696
+            ],
+            [
+                -68.6098002266161,
+                -34.18918976413831
+            ],
+            [
+                -68.38659091179271,
+                -34.23076205868624
+            ]
+        ]
+    },
+    "REFLECTIVE SAMPLES": 7741,
+    "SUN AZIMUTH": 77.61353044,
+    "DATA SOURCE TIRS STRAY LIGHT CORRECTION": "TIRS",
+    "DATE ACQUIRED": "2024-01-14",
+    "ELLIPSOID": "WGS84",
+    "STATION ID": "LGN",
+    "RESAMPLING OPTION": "CUBIC_CONVOLUTION",
+    "ORIENTATION": "NORTH_UP",
+    "WRS ROW": 83,
+    "RADIANCE MULT BAND 9": 0.0024697,
+    "TARGET WRS ROW": 83,
+    "RADIANCE MULT BAND 7": 0.0005297,
+    "RADIANCE MULT BAND 8": 0.011687,
+    "IMAGE QUALITY TIRS": 9,
+    "TRUNCATION OLI": "UPPER",
+    "CLOUD COVER": 29.29,
+    "GEOMETRIC RMSE VERIFY": 1.761,
+    "COLLECTION CATEGORY": "T1",
+    "GRID CELL SIZE REFLECTIVE": 30,
+    "CLOUD COVER LAND": 29.29,
+    "GEOMETRIC RMSE MODEL": 4.89,
+    "COLLECTION NUMBER": 2,
+    "IMAGE QUALITY OLI": 9,
+    "LANDSAT SCENE ID": "LC82320832024014LGN00",
+    "WRS PATH": 232,
+    "PANCHROMATIC SAMPLES": 15481,
+    "PANCHROMATIC LINES": 15601,
+    "GEOMETRIC RMSE MODEL Y": 3.638,
+    "REFLECTIVE LINES": 7801,
+    "GEOMETRIC RMSE MODEL X": 3.267,
+    "system:asset size": 1386775993,
+    "system:index": "LC08_232083_20240114",
+    "DATA SOURCE ELEVATION": "GLS2000",
+    "REFLECTANCE ADD BAND 1": -0.1,
+    "REFLECTANCE ADD BAND 2": -0.1,
+    "DATUM": "WGS84",
+    "REFLECTANCE ADD BAND 3": -0.1,
+    "REFLECTANCE ADD BAND 4": -0.1,
+    "REFLECTANCE ADD BAND 5": -0.1,
+    "REFLECTANCE ADD BAND 6": -0.1,
+    "REFLECTANCE ADD BAND 7": -0.1,
+    "REFLECTANCE ADD BAND 8": -0.1,
+    "GROUND CONTROL POINTS VERSION": 5,
+    "UTM ZONE": 19,
+    "system:time end": 1705242457488,
+    "LANDSAT PRODUCT ID": "LC08_L1TP_232083_20240114_20240123_02_T1",
+    "REFLECTANCE ADD BAND 9": -0.1,
+    "GRID CELL SIZE PANCHROMATIC": 15,
+    "RADIANCE ADD BAND 4": -51.63286,
+    "REFLECTANCE MULT BAND 7": 2e-05,
+    "system:time start": 1705242457488,
+    "RADIANCE ADD BAND 5": -31.59674,
+    "REFLECTANCE MULT BAND 6": 2e-05,
+    "RADIANCE ADD BAND 6": -7.85782,
+    "REFLECTANCE MULT BAND 9": 2e-05,
+    "PROCESSING SOFTWARE VERSION": "LPGS_16.3.1",
+    "RADIANCE ADD BAND 7": -2.64851,
+    "REFLECTANCE MULT BAND 8": 2e-05,
+    "RADIANCE ADD BAND 1": -64.88886,
+    "RADIANCE ADD BAND 2": -66.44698,
+    "RADIANCE ADD BAND 3": -61.23033,
+    "REFLECTANCE MULT BAND 1": 2e-05,
+    "RADIANCE ADD BAND 8": -58.43419,
+    "REFLECTANCE MULT BAND 3": 2e-05,
+    "RADIANCE ADD BAND 9": -12.34872,
+    "REFLECTANCE MULT BAND 2": 2e-05,
+    "REFLECTANCE MULT BAND 5": 2e-05,
+    "REFLECTANCE MULT BAND 4": 2e-05,
+    "THERMAL LINES": 7801,
+    "TIRS SSM POSITION STATUS": "ESTIMATED",
+    "GRID CELL SIZE THERMAL": 30,
+    "NADIR OFFNADIR": "NADIR",
+    "RADIANCE ADD BAND 11": 0.1,
+    "REQUEST ID": "1843392_00030",
+    "EARTH SUN DISTANCE": 0.9836064,
+    "TIRS SSM MODEL": "FINAL",
+    "SCENE CENTER TIME": "14:27:37.4883010Z",
+    "SUN ELEVATION": 57.31753811,
+    "RADIANCE ADD BAND 10": 0.1,
+    "ROLL ANGLE": -0.001,
+    "DATE PRODUCT GENERATED": 1706053810000,
+    "K1 CONSTANT BAND 10": 774.8853,
+    "SATURATION BAND 1": "N",
+    "SATURATION BAND 2": "N",
+    "SATURATION BAND 3": "N",
+    "SATURATION BAND 4": "Y",
+    "SATURATION BAND 5": "Y",
+    "MAP PROJECTION": "UTM",
+    "SATURATION BAND 6": "Y",
+    "SENSOR ID": "OLI_TIRS",
+    "SATURATION BAND 7": "Y",
+    "K1 CONSTANT BAND 11": 480.8883,
+    "SATURATION BAND 8": "N",
+    "SATURATION BAND 9": "N",
+    "TARGET WRS PATH": 232,
+    "PROCESSING LEVEL": "L1TP",
+    "RADIANCE MULT BAND 11": 0.0003342,
+    "RADIANCE MULT BAND 10": 0.0003342,
+    "GROUND CONTROL POINTS MODEL": 518,
+    "SPACECRAFT ID": "LANDSAT_8",
+    "THERMAL SAMPLES": 7741,
+    "GROUND CONTROL POINTS VERIFY": 117
+}
